@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 
 public class Timetable {
@@ -8,9 +9,7 @@ public class Timetable {
     private final HashMap<Integer, Group> groups;
     private final HashMap<Integer, Timeslot> timeslots;
     private Class classes[];
-
     private int numClasses = 0;
-
 
 
     /**
@@ -275,6 +274,7 @@ public class Timetable {
                 clashes++;
             }
             // Check if room is taken
+            //Arrays.asList(this.classes).stream().filter()
             for (Class classB : this.classes) {
                 if (classA.getRoomId() == classB.getRoomId() && classA.getTimeslotId() == classB.getTimeslotId()
                         && classA.getClassId() != classB.getClassId()) {

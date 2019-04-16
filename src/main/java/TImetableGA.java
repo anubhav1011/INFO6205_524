@@ -4,7 +4,7 @@ public class TImetableGA {
         // Get a Timetable object with all the available information.
         Timetable timetable = initializeTimetable();
         // Initialize GA
-        GeneticAlgorithm ga = new GeneticAlgorithm(100, 0.01, 0.9, 2, 5);
+        GeneticAlgorithm ga = new GeneticAlgorithm(400, 0.02, 0.9, 2, 5);
         // Initialize population
         Population population = ga.initPopulation(timetable);
         // Evaluate population
