@@ -101,26 +101,24 @@ public class GeneticAlgorithm {
     }
 
 
-    public Population mutatePopulation(Population population) {
+    public Population mutatePopulation(Population population, Database database) {
         population.sortBasedOnFitness();
         // Initialize new population
         Population newPopulation = new Population();
         // Loop over current population by fitness
         for (int populationIndex = 0; populationIndex < population.populationSize(); populationIndex++) {
-            Individual individual = population.getFittest();
+            Individual individual = population.getFittest(populationIndex);
             // Loop over individual’s genes
+
+            // Create random individual to swap genes with
+            Individual randomIndividual = new Individual(database);
             for (int geneIndex = 0; geneIndex < individual.getChromosomeLength(); geneIndex++) {
                 // Skip mutation if this is an elite individual
-                if (populationIndex >= this.elitismCount) {
+                if (populationIndex > this.elitismCount) {
                     // Does this gene need mutation?
                     if (this.mutationRate > Math.random()) {
-                        // Get new gene
-                        int newGene = 1;
-                        if (individual.getGene(geneIndex) == 1) {
-                            newGene = 0;
-                        }
-                        // Mutate gene
-                        individual.setGene(geneIndex, newGene);
+                        // Swap for new gene
+                        individual.setGene(geneIndex, randomIndividual.getGene(geneIndex));
                     }
                 }
             }

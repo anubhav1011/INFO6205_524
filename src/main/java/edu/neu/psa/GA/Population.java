@@ -46,8 +46,12 @@ public class Population {
     public Individual getFittest() {
         return this.population.get(0);
 
+    }
+    public Individual getFittest(int index) {
+        return this.population.get(index);
 
     }
+
 
 
     public double getPopulationFitness() {
@@ -78,7 +82,7 @@ public class Population {
     }
 
     public void setIndividual(int populationIndex, Individual parent1) {
-        this.population.set(populationIndex, parent1);
+        this.population.add(populationIndex, parent1);
 
     }
 }

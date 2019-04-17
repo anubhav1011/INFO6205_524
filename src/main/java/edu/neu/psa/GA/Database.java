@@ -79,24 +79,26 @@ public class Database {
                 .filter(x -> x.intValue() > 1)
                 .mapToInt(x -> x.intValue())
                 .sum();
-        if (numberOfTimeSameMatchBeingPlayed != 0) {
-            numberOfTimeSameMatchBeingPlayed = numberOfTimeSameMatchBeingPlayed / 2;
-        }
+//        if (numberOfTimeSameMatchBeingPlayed != 0) {
+//            numberOfTimeSameMatchBeingPlayed = numberOfTimeSameMatchBeingPlayed / 2;
+//        }
         for (MatchDay matchDay : seasonSchedule) {
             Integer[] matchDayChromosome = matchDay.getMatches().stream()
                     .flatMap(x -> Stream.of(x.getMatch()))
                     .toArray(Integer[]::new);
             Map<Integer, Long> teamPlayingMultipleTimesSameDayMap = Arrays.asList(matchDayChromosome).stream()
                     .collect(Collectors.groupingBy(Function.identity(), Collectors.counting()));
-            teamsPlayingMultipleMatchesSameDay = teamPlayingMultipleTimesSameDayMap.values().stream()
+            int sum = teamPlayingMultipleTimesSameDayMap.values().stream()
                     .filter(x -> x.intValue() > 1)
                     .mapToInt(x -> x.intValue())
                     .sum();
-            if (teamsPlayingMultipleMatchesSameDay != 0) {
-                teamsPlayingMultipleMatchesSameDay = teamsPlayingMultipleMatchesSameDay + teamsPlayingMultipleMatchesSameDay / 2;
 
-
-            }
+            teamsPlayingMultipleMatchesSameDay = teamsPlayingMultipleMatchesSameDay + sum;
+//            if (teamsPlayingMultipleMatchesSameDay != 0) {
+//                teamsPlayingMultipleMatchesSameDay = teamsPlayingMultipleMatchesSameDay + teamsPlayingMultipleMatchesSameDay / 2;
+//
+//
+//            }
 
 
         }

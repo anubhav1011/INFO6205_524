@@ -86,4 +86,12 @@ public class Individual {
     public void setGene(int geneIndex, int gene) {
         this.chromosome[geneIndex] = gene;
     }
+
+    public String toString() {
+        String output = "";
+        for (int gene = 0; gene < this.chromosome.length; gene++) {
+            output += this.chromosome[gene] + ",";
+        }
+        return output;
+    }
 }

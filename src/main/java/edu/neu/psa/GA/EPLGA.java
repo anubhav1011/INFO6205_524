@@ -4,7 +4,7 @@ public class EPLGA {
 
     public static void main(String[] args) {
         Database database = initializeDatabase();
-        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(100, 0.01, 0.95, 0);
+        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(100, 0.01, 0.95, 5);
         Population population = geneticAlgorithm.initPopulation(database);
         geneticAlgorithm.evalPopulation(population, database);
         int generation = 1;
@@ -14,7 +14,7 @@ public class EPLGA {
             // Apply crossover
             population = geneticAlgorithm.crossoverPopulation(population);
             // Apply mutation
-            population = geneticAlgorithm.mutatePopulation(population);
+            population = geneticAlgorithm.mutatePopulation(population, database);
             // Evaluate population
             geneticAlgorithm.evalPopulation(population, database);
             // Increment the current generation
