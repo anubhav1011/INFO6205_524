@@ -11,8 +11,10 @@ public class EPLGA {
             // Print fittest individual from population
             System.out.println("Best solution: " + population.getFittest().toString());
             // Apply crossover
+            population = geneticAlgorithm.crossoverPopulation(population);
             // TODO!
             // Apply mutation
+            population = geneticAlgorithm.mutatePopulation(population);
             // TODO!
             // Evaluate population
             geneticAlgorithm.evalPopulation(population);
@@ -24,4 +26,4 @@ public class EPLGA {
     }
 
 }
-}
+

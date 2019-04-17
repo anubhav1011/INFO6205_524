@@ -13,8 +13,8 @@ public class Population {
     private double populationFitness = -1;
 
 
-    public Population(List<Individual> population) {
-        this.population = population;
+    public Population() {
+        this.population = new ArrayList<>();
     }
 
     public Population(int populationSize, int chromosomeLength) {
@@ -27,8 +27,8 @@ public class Population {
     }
 
 
-    public Individual getFittest() {
-        Individual fittestIndividual = this.population.stream().sorted((x, y) -> {
+    public void sortBasedOnFitness() {
+        this.population = this.population.stream().sorted((x, y) -> {
             double xFitness = x.getFitness();
             double yFitness = y.getFitness();
             if (xFitness > yFitness) {
@@ -37,8 +37,14 @@ public class Population {
                 return 0;
             }
             // return 0;
-        }).collect(Collectors.<Individual>toList()).get(0);
-        return fittestIndividual;
+        }).collect(Collectors.toList());
+
+
+    }
+
+
+    public Individual getFittest() {
+        return this.population.get(0);
 
 
     }
@@ -64,5 +70,15 @@ public class Population {
             population.set(index, population.get(i));
             population.set(i, a);
         }
+    }
+
+
+    public int populationSize() {
+        return this.population.size();
+    }
+
+    public void setIndividual(int populationIndex, Individual parent1) {
+        this.population.set(populationIndex, parent1);
+
     }
 }

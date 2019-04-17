@@ -42,4 +42,8 @@ public class Individual {
     public int getGene(int geneIndex) {
         return chromosome[geneIndex];
     }
+
+    public void setGene(int geneIndex, int gene) {
+        this.chromosome[geneIndex] = gene;
+    }
 }
