@@ -92,15 +92,15 @@ public class Database {
                     .filter(x -> x.intValue() > 1)
                     .mapToInt(x -> x.intValue())
                     .sum();
-
+//            if (sum != 0) {
+//                sum = sum / 2;
+//            }
             teamsPlayingMultipleMatchesSameDay = teamsPlayingMultipleMatchesSameDay + sum;
 //            if (teamsPlayingMultipleMatchesSameDay != 0) {
 //                teamsPlayingMultipleMatchesSameDay = teamsPlayingMultipleMatchesSameDay + teamsPlayingMultipleMatchesSameDay / 2;
 //
 //
 //            }
-
-
         }
         clashes = numberOfTimeSameMatchBeingPlayed + teamsPlayingMultipleMatchesSameDay;
         return clashes;
@@ -108,4 +108,12 @@ public class Database {
 
     }
 
+    public List<MatchDay> getSeasonSchedule() {
+        return seasonSchedule;
+    }
+
+
+    public Team getTeamBasedOnId(int teamId) {
+        return this.teams.get(teamId);
+    }
 }
