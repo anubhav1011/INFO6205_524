@@ -102,7 +102,10 @@ public class Database {
 //
 //            }
         }
-        clashes = numberOfTimeSameMatchBeingPlayed + teamsPlayingMultipleMatchesSameDay;
+        long teamsPlayingAgainstEachOtherLong = allMatches.stream().filter(x -> x.getMatch()[0] == x.getMatch()[1])
+                .count();
+        teamsPlayingAgainstEachOther = (int) teamsPlayingAgainstEachOtherLong;
+        clashes = numberOfTimeSameMatchBeingPlayed + teamsPlayingMultipleMatchesSameDay + teamsPlayingAgainstEachOther;
         return clashes;
 
 

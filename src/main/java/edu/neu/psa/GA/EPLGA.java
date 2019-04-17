@@ -6,7 +6,7 @@ public class EPLGA {
 
     public static void main(String[] args) {
         Database database = initializeDatabase();
-        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(200, 0.01, 0.8, 5);
+        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(100, 0.01, 0.9, 5);
         Population population = geneticAlgorithm.initPopulation(database);
         geneticAlgorithm.evalPopulation(population, database);
         int generation = 1;
@@ -23,6 +23,7 @@ public class EPLGA {
             generation++;
         }
         System.out.println("Found solution in " + generation + " generations");
+        System.out.println("Best solution: " + population.getFittest().getFitness());
         System.out.println("Best solution: " + population.getFittest().toString());
         System.out.println();
         System.out.println("#######################");
@@ -40,7 +41,7 @@ public class EPLGA {
                 int matchNumber = matchDay.getMatches().indexOf(match) + 1;
                 Team teamA = database.getTeamBasedOnId(match1[0]);
                 Team teamB = database.getTeamBasedOnId(match1[1]);
-                System.out.println("Match " + matchNumber + ": " + teamA.getTeamName() + " (H) " + " Vs " + teamB.getTeamName() + " (A) ");
+                System.out.println("Match " + matchNumber + ": " + teamA.getTeamName() + " (H)" + " Vs " + teamB.getTeamName() + " (A)");
 
             }
             System.out.println();
