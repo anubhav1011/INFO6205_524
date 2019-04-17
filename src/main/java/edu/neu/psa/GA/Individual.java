@@ -23,7 +23,7 @@ public class Individual {
 
     }
 
-    public int chromosomeLength() {
+    public int getChromosomeLength() {
         return chromosome.length;
     }
 
@@ -37,5 +37,9 @@ public class Individual {
 
     public void setFitness(double fitness) {
         this.fitness = fitness;
+    }
+
+    public int getGene(int geneIndex) {
+        return chromosome[geneIndex];
     }
 }
