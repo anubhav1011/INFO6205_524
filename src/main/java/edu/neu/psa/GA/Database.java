@@ -64,10 +64,10 @@ public class Database {
 
 
     public int calculateClashes() {
-        int clashes = 0;
+        int clashes;
         int numberOfTimeSameMatchBeingPlayed;
         int teamsPlayingMultipleMatchesSameDay = 0;
-        int teamsPlayingAgainstEachOther;
+        int teamsPlayingAgainstEachOther = 0;
         //Get all matches for a particular schedule
         List<Match> allMatches = seasonSchedule.stream()
                 .flatMap(x -> x.getMatches().stream())
@@ -79,9 +79,9 @@ public class Database {
                 .filter(x -> x.intValue() > 1)
                 .mapToInt(x -> x.intValue())
                 .sum();
-//        if (numberOfTimeSameMatchBeingPlayed != 0) {
-//            numberOfTimeSameMatchBeingPlayed = numberOfTimeSameMatchBeingPlayed / 2;
-//        }
+        if (numberOfTimeSameMatchBeingPlayed != 0) {
+            numberOfTimeSameMatchBeingPlayed = numberOfTimeSameMatchBeingPlayed / 2;
+        }
         for (MatchDay matchDay : seasonSchedule) {
             Integer[] matchDayChromosome = matchDay.getMatches().stream()
                     .flatMap(x -> Stream.of(x.getMatch()))
@@ -92,9 +92,9 @@ public class Database {
                     .filter(x -> x.intValue() > 1)
                     .mapToInt(x -> x.intValue())
                     .sum();
-//            if (sum != 0) {
-//                sum = sum / 2;
-//            }
+            if (sum != 0) {
+                sum = sum / 2;
+            }
             teamsPlayingMultipleMatchesSameDay = teamsPlayingMultipleMatchesSameDay + sum;
 //            if (teamsPlayingMultipleMatchesSameDay != 0) {
 //                teamsPlayingMultipleMatchesSameDay = teamsPlayingMultipleMatchesSameDay + teamsPlayingMultipleMatchesSameDay / 2;
@@ -102,9 +102,9 @@ public class Database {
 //
 //            }
         }
-        long teamsPlayingAgainstEachOtherLong = allMatches.stream().filter(x -> x.getMatch()[0] == x.getMatch()[1])
-                .count();
-        teamsPlayingAgainstEachOther = (int) teamsPlayingAgainstEachOtherLong;
+//        long teamsPlayingAgainstEachOtherLong = allMatches.stream().filter(x -> x.getMatch()[0] == x.getMatch()[1])
+//                .count();
+//        teamsPlayingAgainstEachOther = (int) teamsPlayingAgainstEachOtherLong;
         clashes = numberOfTimeSameMatchBeingPlayed + teamsPlayingMultipleMatchesSameDay + teamsPlayingAgainstEachOther;
         return clashes;
 

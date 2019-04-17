@@ -33,6 +33,8 @@ public class Population {
             double yFitness = y.getFitness();
             if (xFitness > yFitness) {
                 return -1;
+            } else if (xFitness < yFitness) {
+                return 1;
             } else {
                 return 0;
             }
@@ -47,11 +49,11 @@ public class Population {
         return this.population.get(0);
 
     }
+
     public Individual getFittest(int index) {
         return this.population.get(index);
 
     }
-
 
 
     public double getPopulationFitness() {

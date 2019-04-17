@@ -23,7 +23,13 @@ public class EPLGA {
             generation++;
         }
         System.out.println("Found solution in " + generation + " generations");
+
+
         System.out.println("Best solution: " + population.getFittest().getFitness());
+        Individual individual = population.getIndividuals().stream()
+                .filter(ind -> ind.getFitness() == 1)
+                .findAny().orElse(null);
+        System.out.println(individual.getFitness());
         System.out.println("Best solution: " + population.getFittest().toString());
         System.out.println();
         System.out.println("#######################");
@@ -61,8 +67,8 @@ public class EPLGA {
         database.addTeam(4, "Liverpool");
         database.addTeam(5, "Tottenham");
         database.addTeam(6, "Arsenal");
-//        database.addTeam(7, "Everton");
-//        database.addTeam(8, "Wolves");
+        database.addTeam(7, "Everton");
+        database.addTeam(8, "Wolves");
 //        database.addTeam(9, "Leicester City");
 //        database.addTeam(10, "Southampton");
         return database;
