@@ -14,4 +14,9 @@ public class MatchDay {
     public void add(Match match) {
         this.matches.add(match);
     }
+
+
+    public List<Match> getMatches() {
+        return matches;
+    }
 }

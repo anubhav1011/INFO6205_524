@@ -18,32 +18,26 @@ public class GeneticAlgorithm {
     }
 
 
-    public Population initPopulation(int chromosomeLength) {
-        Population population = new Population(this.populationSize, chromosomeLength);
+    public Population initPopulation(Database database) {
+        Population population = new Population(this.populationSize, database);
         return population;
     }
 
-    public double calculateFitness(Individual individual) {
-        // Track number of correct genes
-        int correctGenes = 0;
-        // Loop over individual’s genes
-        for (int geneIndex = 0; geneIndex < individual.getChromosomeLength(); geneIndex++) {
-            // Add one fitness point for each "1" found
-            if (individual.getGene(geneIndex) == 1) {
-                correctGenes += 1;
-            }
-        }
-        // Calculate fitness
-        double fitness = (double) correctGenes / individual.getChromosomeLength();
-        // Store fitness
+    public double calculateFitness(Individual individual, Database database) {
+        // Create new database object to use -- cloned from an existing database
+        Database threadDatabase = new Database(database);
+        threadDatabase.createSeasonSchedule(individual);
+        int clashes = threadDatabase.calculateClashes();
+        double fitness = 1 / (double) (clashes + 1);
         individual.setFitness(fitness);
         return fitness;
+
     }
 
-    public void evalPopulation(Population population) {
+    public void evalPopulation(Population population, Database database) {
         //double populationFitness = 0;
         double populationFitness = population.getIndividuals().stream()
-                .mapToDouble(x -> calculateFitness(x))
+                .mapToDouble(x -> calculateFitness(x, database))
                 .sum();
         population.setPopulationFitness(populationFitness);
         //sort the population based on fitness

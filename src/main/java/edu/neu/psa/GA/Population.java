@@ -17,10 +17,10 @@ public class Population {
         this.population = new ArrayList<>();
     }
 
-    public Population(int populationSize, int chromosomeLength) {
+    public Population(int populationSize, Database database) {
         this.population = new ArrayList<>();
         for (int i = 0; i < populationSize; i++) {
-            Individual individual = new Individual(chromosomeLength);
+            Individual individual = new Individual(database);
             this.population.add(individual);
         }
 
