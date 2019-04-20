@@ -36,6 +36,17 @@ public class Population {
 
     }
 
+//    public Population(int populationSize) {
+//        this.population = new ArrayList<>();
+//        for (Genotype genotype : cloneable.getGenotypes()) {
+//            this.population.add(genotype);
+//
+//        }
+//        this.sortBasedOnFitness();
+//        this.populationFitness = cloneable.populationFitness;
+//
+//    }
+
 
     public void sortBasedOnFitness() {
         this.population = this.population.stream().sorted((x, y) -> {

@@ -52,7 +52,6 @@ public class GeneticAlgorithm {
         return isTerminationConditionMet;
     }
 
-
     public Genotype selectParent(Population population) {
         List<Genotype> genotypes = population.getGenotypes();
         double populationFitness = population.getPopulationFitness();
@@ -67,6 +66,21 @@ public class GeneticAlgorithm {
         // Get genotypes
         return genotypes.get(population.populationSize() - 1);
     }
+//    public Genotype selectParent(Population population) {
+//        // Create tournament
+//        Population tournament = new Population();
+//        int tournamentSize = 5;
+//        // Add random individuals to the tournament
+//        population.shuffle();
+//        for (int i = 0; i < tournamentSize; i++) {
+//            Genotype tournamentIndividual = population.getFittest(i);
+//            tournament.setIndividual(i, tournamentIndividual);
+//        }
+//
+//        tournament.sortBasedOnFitness();
+//        // Return the best
+//        return tournament.getFittest(0);
+//    }
 
 
     public Population crossoverPopulation(Population population) {
@@ -109,7 +123,6 @@ public class GeneticAlgorithm {
         for (int populationIndex = 0; populationIndex < population.populationSize(); populationIndex++) {
             Genotype genotype = population.getFittest(populationIndex);
             // Loop over genotype’s genes
-
             // Create random genotype to swap genes with
             Genotype randomGenotype = new Genotype(database);
             for (int geneIndex = 0; geneIndex < genotype.getChromosomeLength(); geneIndex++) {

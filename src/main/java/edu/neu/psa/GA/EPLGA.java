@@ -65,8 +65,8 @@ public class EPLGA {
         database.addTeam(4, "Liverpool");
         database.addTeam(5, "Tottenham");
         database.addTeam(6, "Arsenal");
-//        database.addTeam(7, "Everton");
-//        database.addTeam(8, "Wolves");
+        database.addTeam(7, "Everton");
+        database.addTeam(8, "Wolves");
 //        database.addTeam(9, "Leicester City");
 //        database.addTeam(10, "Southampton");
         return database;

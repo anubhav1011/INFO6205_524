@@ -65,10 +65,14 @@ public class MasterActor extends AbstractActor {
     public void evaluateResult(Genotype genotype) {
         this.currentPopulation.addGenotype(genotype);
         if (this.currentPopulation.populationSize() == this.populationSize) {
-            this.currentPopulation.calculateFitness();
-            this.currentPopulation.sortBasedOnFitness();
+            //recalculateFitness();
+            this.currentPopulation = this.geneticAlgorithm.mutatePopulation(this.currentPopulation, this.database);
+            recalculateFitness(this.currentPopulation);
+//            this.currentPopulation.calculateFitness();
+//            this.currentPopulation.sortBasedOnFitness();
             if (this.geneticAlgorithm.isTerminationConditionMet(this.currentPopulation) == false) {
                 System.out.println("Generation: " + this.currentGeneration + " fittest " + this.currentPopulation.getFittest().getFitness());
+                // Population previousGeneration = new Population(this.currentPopulation);
                 Population previousGeneration = new Population(this.currentPopulation);
                 this.currentPopulation.getGenotypes().clear();
                 for (int i = 0; i < populationSize; i++) {
@@ -92,6 +96,13 @@ public class MasterActor extends AbstractActor {
     }
 
 
+    public void recalculateFitness(Population population) {
+        population.calculateFitness();
+        population.sortBasedOnFitness();
+
+    }
+
+
     public void executeInitLogic() {
         //Create Initial Population
         this.database = initializeDatabase();
@@ -111,8 +122,8 @@ public class MasterActor extends AbstractActor {
 
     public void printSolution() {
         System.out.println("Found solution in " + this.currentGeneration + " generations");
-        System.out.println("Best solution: " + this.currentPopulation.getFittest().getFitness());
-        System.out.println("Best solution: " + this.currentPopulation.getFittest().toString());
+        System.out.println("Best solution fitness: " + this.currentPopulation.getFittest().getFitness());
+        System.out.println("Best solution Genotype: " + this.currentPopulation.getFittest().toString());
         System.out.println();
         System.out.println("###############################");
         System.out.println("English Premier League Schedule");
@@ -124,7 +135,7 @@ public class MasterActor extends AbstractActor {
         List<MatchSchedule> seasonSchedule = fittest.getPhenotype().getMatchSchedules();
         for (MatchSchedule matchSchedule : seasonSchedule) {
             int matchDayNumber = seasonSchedule.indexOf(matchSchedule) + 1;
-            System.out.println("MatchSchedule: " + matchDayNumber);
+            System.out.println("MatchDay: " + matchDayNumber);
             for (Match match : matchSchedule.getMatches()) {
                 Integer[] match1 = match.getMatch();
                 int matchNumber = matchSchedule.getMatches().indexOf(match) + 1;

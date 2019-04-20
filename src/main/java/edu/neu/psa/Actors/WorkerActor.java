@@ -38,7 +38,7 @@ public class WorkerActor extends AbstractActor {
             int fitnessIndex = request.fitnessIndex;
             Database database = request.database;
             Genotype genotype = crossoverPopulation(previousGeneration, crossoverRate, elitismCount, fitnessIndex);
-            mutateGenotype(genotype, database, fitnessIndex, elitismCount, mutationRate);
+           // mutateGenotype(genotype, database, fitnessIndex, elitismCount, mutationRate);
             genotype.createPhenoType(database.getTeams());
             sender().tell(new MasterActor.Result(genotype), getSelf());
             context().stop(getSelf());
@@ -67,7 +67,7 @@ public class WorkerActor extends AbstractActor {
     public Genotype crossoverPopulation(Population previousPopulation, double crossoverRate, double elitismCount, int fitnessIndex) {
         Genotype parent1 = previousPopulation.getFittest();
         //Genotype parent1 = selectParent(previousPopulation);
-        if (crossoverRate > Math.random() && 1 >= elitismCount) {
+        if (crossoverRate > Math.random() && fitnessIndex >= elitismCount) {
             Genotype offspring = new Genotype(parent1.getChromosomeLength());
             Genotype parent2 = selectParent(previousPopulation);
             for (int geneIndex = 0; geneIndex < parent1.getChromosomeLength(); geneIndex++) {
@@ -88,7 +88,6 @@ public class WorkerActor extends AbstractActor {
     }
 
     public void mutateGenotype(Genotype genotype, Database database, int fitnessIndex, double elitismCount, double mutationRate) {
-        // Initialize new population
         //Population newPopulation = new Population();
         Genotype randomGenotype = new Genotype(database);
         for (int geneIndex = 0; geneIndex < genotype.getChromosomeLength(); geneIndex++) {
