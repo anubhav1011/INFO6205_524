@@ -114,9 +114,9 @@ public class MasterActor extends AbstractActor {
         System.out.println("Best solution: " + this.currentPopulation.getFittest().getFitness());
         System.out.println("Best solution: " + this.currentPopulation.getFittest().toString());
         System.out.println();
-        System.out.println("#######################");
+        System.out.println("###############################");
         System.out.println("English Premier League Schedule");
-        System.out.println("#######################");
+        System.out.println("###############################");
         System.out.println();
         Genotype fittest = this.currentPopulation.getFittest();
         fittest.createPhenoType(database.getTeams());
@@ -148,8 +148,8 @@ public class MasterActor extends AbstractActor {
         database.addTeam(4, "Liverpool");
         database.addTeam(5, "Tottenham");
         database.addTeam(6, "Arsenal");
-        database.addTeam(7, "Everton");
-        database.addTeam(8, "Wolves");
+//        database.addTeam(7, "Everton");
+//        database.addTeam(8, "Wolves");
 //        database.addTeam(9, "Leicester City");
 //        database.addTeam(10, "Southampton");
         return database;

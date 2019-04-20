@@ -31,6 +31,7 @@ public class Population {
             this.population.add(genotype);
 
         }
+        this.sortBasedOnFitness();
         this.populationFitness = cloneable.populationFitness;
 
     }
