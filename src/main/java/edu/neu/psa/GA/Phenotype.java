@@ -1,22 +1,29 @@
 package edu.neu.psa.GA;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class Phenotype {
-    private List<Match> matches;
 
+    private List<MatchSchedule> matchSchedules;
+    private double fitnessScore;
 
     public Phenotype() {
-        this.matches = new ArrayList<>();
+        this.matchSchedules = matchSchedules;
     }
 
-    public void add(Match match) {
-        this.matches.add(match);
+    public List<MatchSchedule> getMatchSchedules() {
+        return matchSchedules;
     }
 
+    public void setMatchSchedules(List<MatchSchedule> matchSchedules) {
+        this.matchSchedules = matchSchedules;
+    }
 
-    public List<Match> getMatches() {
-        return matches;
+    public double getFitnessScore() {
+        return fitnessScore;
+    }
+
+    public void setFitnessScore(double fitnessScore) {
+        this.fitnessScore = fitnessScore;
     }
 }

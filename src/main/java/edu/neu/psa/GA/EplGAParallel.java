@@ -1,13 +1,22 @@
 package edu.neu.psa.GA;
 
+import akka.actor.ActorRef;
+import akka.actor.ActorSystem;
+import edu.neu.psa.Actors.MasterActor;
+
 import java.util.List;
 
-public class EPLGA {
+public class EplGAParallel {
+
 
     public static void main(String[] args) {
         Database database = initializeDatabase();
-        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(100, 0.01, 0.95, 0);
+        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(100, 0.01, 0.95, 4);
         Population population = geneticAlgorithm.initPopulation(database);
+        final ActorSystem actorSystem = ActorSystem.create("Epl-GA-System");
+        ActorRef masterActor = actorSystem.actorOf(MasterActor.props());
+        masterActor.tell(new MasterActor.Init(), null);
+        // Props props = MasterActor.props();
         geneticAlgorithm.evalPopulation(population, database);
         int generation = 1;
         while (geneticAlgorithm.isTerminationConditionMet(population) == false) {
@@ -65,13 +74,13 @@ public class EPLGA {
         database.addTeam(4, "Liverpool");
         database.addTeam(5, "Tottenham");
         database.addTeam(6, "Arsenal");
-        database.addTeam(7, "Everton");
-        database.addTeam(8, "Wolves");
-        database.addTeam(9, "Leicester City");
-        database.addTeam(10, "Southampton");
+//        database.addTeam(7, "Everton");
+//        database.addTeam(8, "Wolves");
+//        database.addTeam(9, "Leicester City");
+//        database.addTeam(10, "Southampton");
         return database;
 
     }
 
-}
 
+}

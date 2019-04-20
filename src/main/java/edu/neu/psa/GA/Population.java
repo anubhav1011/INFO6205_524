@@ -44,6 +44,7 @@ public class Population {
     }
 
 
+
     public Genotype getFittest() {
         return this.population.get(0);
 
@@ -52,6 +53,10 @@ public class Population {
     public Genotype getFittest(int index) {
         return this.population.get(index);
 
+    }
+
+    public void addGenotype(Genotype genotype) {
+        this.population.add(genotype);
     }
 
 
@@ -63,7 +68,7 @@ public class Population {
         this.populationFitness = populationFitness;
     }
 
-    public List<Genotype> getIndividuals() {
+    public List<Genotype> getGenotypes() {
         return population;
     }
 

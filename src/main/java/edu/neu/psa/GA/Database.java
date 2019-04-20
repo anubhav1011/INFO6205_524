@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 public class Database {
 
     private final HashMap<Integer, Team> teams;
-    private List<Phenotype> seasonSchedule;
+    private List<MatchSchedule> seasonSchedule;
 
 
     public Database() {
@@ -33,15 +33,15 @@ public class Database {
         int chromsoPos = 0;
         int seasonSchedulePos = 0;
         for (int i = 0; i < matchDays; i++) {
-            Phenotype phenotype = new Phenotype();
+            MatchSchedule matchSchedule = new MatchSchedule();
             for (int j = 0; j < numberOfTeams / 2; j++) {
                 int teamA = chromsoPos++;
                 int teamB = chromsoPos++;
                 Match match = new Match(chromosome[teamA], chromosome[teamB]);
-                phenotype.add(match);
+                matchSchedule.add(match);
 
             }
-            this.seasonSchedule.add(phenotype);
+            this.seasonSchedule.add(matchSchedule);
 
         }
         //System.out.println(this.seasonSchedule);
@@ -82,8 +82,8 @@ public class Database {
         if (numberOfTimeSameMatchBeingPlayed != 0) {
             numberOfTimeSameMatchBeingPlayed = numberOfTimeSameMatchBeingPlayed / 2;
         }
-        for (Phenotype phenotype : seasonSchedule) {
-            Integer[] matchDayChromosome = phenotype.getMatches().stream()
+        for (MatchSchedule matchSchedule : seasonSchedule) {
+            Integer[] matchDayChromosome = matchSchedule.getMatches().stream()
                     .flatMap(x -> Stream.of(x.getMatch()))
                     .toArray(Integer[]::new);
             Map<Integer, Long> teamPlayingMultipleTimesSameDayMap = Arrays.asList(matchDayChromosome).stream()
@@ -111,12 +111,16 @@ public class Database {
 
     }
 
-    public List<Phenotype> getSeasonSchedule() {
+    public List<MatchSchedule> getSeasonSchedule() {
         return seasonSchedule;
     }
 
 
     public Team getTeamBasedOnId(int teamId) {
         return this.teams.get(teamId);
+    }
+
+    public HashMap<Integer, Team> getTeams() {
+        return teams;
     }
 }

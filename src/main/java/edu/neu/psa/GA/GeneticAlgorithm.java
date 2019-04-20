@@ -36,7 +36,7 @@ public class GeneticAlgorithm {
 
     public void evalPopulation(Population population, Database database) {
         //double populationFitness = 0;
-        double populationFitness = population.getIndividuals().stream()
+        double populationFitness = population.getGenotypes().stream()
                 .mapToDouble(x -> calculateFitness(x, database))
                 .sum();
         population.setPopulationFitness(populationFitness);
@@ -47,14 +47,14 @@ public class GeneticAlgorithm {
     }
 
     public boolean isTerminationConditionMet(Population population) {
-        boolean isTerminationConditionMet = population.getIndividuals().stream()
+        boolean isTerminationConditionMet = population.getGenotypes().stream()
                 .anyMatch(ind -> ind.getFitness() == 1);
         return isTerminationConditionMet;
     }
 
 
     public Genotype selectParent(Population population) {
-        List<Genotype> genotypes = population.getIndividuals();
+        List<Genotype> genotypes = population.getGenotypes();
         double populationFitness = population.getPopulationFitness();
         double rouletteWheelPosition = Math.random() * populationFitness;
         double spinWheel = 0;
