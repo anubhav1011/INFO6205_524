@@ -8,7 +8,7 @@ import java.util.stream.Stream;
 public class Database {
 
     private final HashMap<Integer, Team> teams;
-    private List<MatchDay> seasonSchedule;
+    private List<Phenotype> seasonSchedule;
 
 
     public Database() {
@@ -26,22 +26,22 @@ public class Database {
         this.teams.put(teamId, new Team(teamId, teamName));
     }
 
-    public void createSeasonSchedule(Individual individual) {
+    public void createSeasonSchedule(Genotype genotype) {
         int numberOfTeams = teams.size();
         int matchDays = (numberOfTeams - 1) * 2;
-        int[] chromosome = individual.getChromosome();
+        int[] chromosome = genotype.getChromosome();
         int chromsoPos = 0;
         int seasonSchedulePos = 0;
         for (int i = 0; i < matchDays; i++) {
-            MatchDay matchDay = new MatchDay();
+            Phenotype phenotype = new Phenotype();
             for (int j = 0; j < numberOfTeams / 2; j++) {
                 int teamA = chromsoPos++;
                 int teamB = chromsoPos++;
                 Match match = new Match(chromosome[teamA], chromosome[teamB]);
-                matchDay.add(match);
+                phenotype.add(match);
 
             }
-            this.seasonSchedule.add(matchDay);
+            this.seasonSchedule.add(phenotype);
 
         }
         //System.out.println(this.seasonSchedule);
@@ -82,8 +82,8 @@ public class Database {
         if (numberOfTimeSameMatchBeingPlayed != 0) {
             numberOfTimeSameMatchBeingPlayed = numberOfTimeSameMatchBeingPlayed / 2;
         }
-        for (MatchDay matchDay : seasonSchedule) {
-            Integer[] matchDayChromosome = matchDay.getMatches().stream()
+        for (Phenotype phenotype : seasonSchedule) {
+            Integer[] matchDayChromosome = phenotype.getMatches().stream()
                     .flatMap(x -> Stream.of(x.getMatch()))
                     .toArray(Integer[]::new);
             Map<Integer, Long> teamPlayingMultipleTimesSameDayMap = Arrays.asList(matchDayChromosome).stream()
@@ -111,7 +111,7 @@ public class Database {
 
     }
 
-    public List<MatchDay> getSeasonSchedule() {
+    public List<Phenotype> getSeasonSchedule() {
         return seasonSchedule;
     }
 

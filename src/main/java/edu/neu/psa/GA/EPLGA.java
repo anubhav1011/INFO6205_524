@@ -6,12 +6,12 @@ public class EPLGA {
 
     public static void main(String[] args) {
         Database database = initializeDatabase();
-        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(100, 0.01, 0.9, 5);
+        GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(100, 0.01, 0.95, 4);
         Population population = geneticAlgorithm.initPopulation(database);
         geneticAlgorithm.evalPopulation(population, database);
         int generation = 1;
         while (geneticAlgorithm.isTerminationConditionMet(population) == false) {
-            // Print fittest individual from population
+            // Print fittest genotype from population
             System.out.println("Best solution: " + population.getFittest().getFitness());
             // Apply crossover
             population = geneticAlgorithm.crossoverPopulation(population);
@@ -26,25 +26,25 @@ public class EPLGA {
 
 
         System.out.println("Best solution: " + population.getFittest().getFitness());
-        Individual individual = population.getIndividuals().stream()
+        Genotype genotype = population.getIndividuals().stream()
                 .filter(ind -> ind.getFitness() == 1)
                 .findAny().orElse(null);
-        System.out.println(individual.getFitness());
+        System.out.println(genotype.getFitness());
         System.out.println("Best solution: " + population.getFittest().toString());
         System.out.println();
         System.out.println("#######################");
-        System.out.println("Premier League Schedule");
+        System.out.println("English Premier League Schedule");
         System.out.println("#######################");
         System.out.println();
-        Individual fittest = population.getFittest();
+        Genotype fittest = population.getFittest();
         database.createSeasonSchedule(fittest);
-        List<MatchDay> seasonSchedule = database.getSeasonSchedule();
-        for (MatchDay matchDay : seasonSchedule) {
-            int matchDayNumber = seasonSchedule.indexOf(matchDay) + 1;
-            System.out.println("MatchDay: " + matchDayNumber);
-            for (Match match : matchDay.getMatches()) {
+        List<Phenotype> seasonSchedule = database.getSeasonSchedule();
+        for (Phenotype phenotype : seasonSchedule) {
+            int matchDayNumber = seasonSchedule.indexOf(phenotype) + 1;
+            System.out.println("Phenotype: " + matchDayNumber);
+            for (Match match : phenotype.getMatches()) {
                 Integer[] match1 = match.getMatch();
-                int matchNumber = matchDay.getMatches().indexOf(match) + 1;
+                int matchNumber = phenotype.getMatches().indexOf(match) + 1;
                 Team teamA = database.getTeamBasedOnId(match1[0]);
                 Team teamB = database.getTeamBasedOnId(match1[1]);
                 System.out.println("Match " + matchNumber + ": " + teamA.getTeamName() + " (H)" + " Vs " + teamB.getTeamName() + " (A)");
@@ -67,8 +67,8 @@ public class EPLGA {
         database.addTeam(4, "Liverpool");
         database.addTeam(5, "Tottenham");
         database.addTeam(6, "Arsenal");
-        database.addTeam(7, "Everton");
-        database.addTeam(8, "Wolves");
+//        database.addTeam(7, "Everton");
+//        database.addTeam(8, "Wolves");
 //        database.addTeam(9, "Leicester City");
 //        database.addTeam(10, "Southampton");
         return database;

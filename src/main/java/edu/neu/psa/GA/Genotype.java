@@ -2,18 +2,18 @@ package edu.neu.psa.GA;
 
 import java.util.Arrays;
 
-public class Individual {
+public class Genotype {
 
     private int[] chromosome;
     private double fitness = -1;
 
 
-    public Individual(int[] chromosome) {
+    public Genotype(int[] chromosome) {
         this.chromosome = chromosome;
     }
 
 
-    public Individual(Database database) {
+    public Genotype(Database database) {
         int numberOfTeams = database.getNumberOfTeams();
         int matchesPlayedByEachTeam = (numberOfTeams - 1) * 2;
 
@@ -40,7 +40,7 @@ public class Individual {
         //System.out.println(Arrays.toString(this.chromosome));
     }
 
-    public Individual(int chromosomeLength) {
+    public Genotype(int chromosomeLength) {
         // Create random individual
         int[] individual;
         individual = new int[chromosomeLength];

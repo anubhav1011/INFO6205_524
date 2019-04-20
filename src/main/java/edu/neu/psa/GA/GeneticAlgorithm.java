@@ -23,13 +23,13 @@ public class GeneticAlgorithm {
         return population;
     }
 
-    public double calculateFitness(Individual individual, Database database) {
+    public double calculateFitness(Genotype genotype, Database database) {
         // Create new database object to use -- cloned from an existing database
         Database threadDatabase = new Database(database);
-        threadDatabase.createSeasonSchedule(individual);
+        threadDatabase.createSeasonSchedule(genotype);
         int clashes = threadDatabase.calculateClashes();
         double fitness = 1 / (double) (clashes + 1);
-        individual.setFitness(fitness);
+        genotype.setFitness(fitness);
         return fitness;
 
     }
@@ -53,19 +53,19 @@ public class GeneticAlgorithm {
     }
 
 
-    public Individual selectParent(Population population) {
-        List<Individual> individuals = population.getIndividuals();
+    public Genotype selectParent(Population population) {
+        List<Genotype> genotypes = population.getIndividuals();
         double populationFitness = population.getPopulationFitness();
         double rouletteWheelPosition = Math.random() * populationFitness;
         double spinWheel = 0;
-        for (Individual individual : individuals) {
-            spinWheel += individual.getFitness();
+        for (Genotype genotype : genotypes) {
+            spinWheel += genotype.getFitness();
             if (spinWheel >= rouletteWheelPosition) {
-                return individual;
+                return genotype;
             }
         }
-        // Get individuals
-        return individuals.get(population.populationSize() - 1);
+        // Get genotypes
+        return genotypes.get(population.populationSize() - 1);
     }
 
 
@@ -74,13 +74,13 @@ public class GeneticAlgorithm {
         Population newPopulation = new Population();
         // Loop over current population by fitness
         for (int populationIndex = 0; populationIndex < population.populationSize(); populationIndex++) {
-            Individual parent1 = population.getFittest();
+            Genotype parent1 = population.getFittest();
             // Apply crossover to this individual?
             if (this.crossoverRate > Math.random() && populationIndex >= this.elitismCount) {
                 // Initialize offspring
-                Individual offspring = new Individual(parent1.getChromosomeLength());
+                Genotype offspring = new Genotype(parent1.getChromosomeLength());
                 // Find second parent
-                Individual parent2 = selectParent(population);
+                Genotype parent2 = selectParent(population);
                 // Loop over genome
                 for (int geneIndex = 0; geneIndex < parent1.getChromosomeLength(); geneIndex++) {
                     // Use half of parent1's genes and half of parent2's genes
@@ -107,23 +107,23 @@ public class GeneticAlgorithm {
         Population newPopulation = new Population();
         // Loop over current population by fitness
         for (int populationIndex = 0; populationIndex < population.populationSize(); populationIndex++) {
-            Individual individual = population.getFittest(populationIndex);
-            // Loop over individual’s genes
+            Genotype genotype = population.getFittest(populationIndex);
+            // Loop over genotype’s genes
 
-            // Create random individual to swap genes with
-            Individual randomIndividual = new Individual(database);
-            for (int geneIndex = 0; geneIndex < individual.getChromosomeLength(); geneIndex++) {
-                // Skip mutation if this is an elite individual
+            // Create random genotype to swap genes with
+            Genotype randomGenotype = new Genotype(database);
+            for (int geneIndex = 0; geneIndex < genotype.getChromosomeLength(); geneIndex++) {
+                // Skip mutation if this is an elite genotype
                 if (populationIndex > this.elitismCount) {
                     // Does this gene need mutation?
                     if (this.mutationRate > Math.random()) {
                         // Swap for new gene
-                        individual.setGene(geneIndex, randomIndividual.getGene(geneIndex));
+                        genotype.setGene(geneIndex, randomGenotype.getGene(geneIndex));
                     }
                 }
             }
-            // Add individual to population
-            newPopulation.setIndividual(populationIndex, individual);
+            // Add genotype to population
+            newPopulation.setIndividual(populationIndex, genotype);
         }
         // Return mutated population
         return newPopulation;

@@ -3,11 +3,11 @@ package edu.neu.psa.GA;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MatchDay {
+public class Phenotype {
     private List<Match> matches;
 
 
-    public MatchDay() {
+    public Phenotype() {
         this.matches = new ArrayList<>();
     }
 

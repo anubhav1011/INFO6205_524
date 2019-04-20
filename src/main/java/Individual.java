@@ -63,13 +63,13 @@ public class Individual {
      * If used in Chapter 5, however, this will create an utterly INVALID
      * chromosome for the class scheduler. So you should not use this
      * constructor if you hope to create a valid random individual. For that
-     * purpose, use the Individual(Timetable) constructor, which will create a
-     * valid Individual from the fixed information in the Timetable object.
+     * purpose, use the Genotype(Timetable) constructor, which will create a
+     * valid Genotype from the fixed information in the Timetable object.
      * <p>
-     * However, Chapter 5 still needs an Individual(int) constructor that
-     * creates an Individual with a chromosome of a given size. It's used in the
+     * However, Chapter 5 still needs an Genotype(int) constructor that
+     * creates an Genotype with a chromosome of a given size. It's used in the
      * crossoverPopulation method in order to initialize the offspring. The fact
-     * that this creates an invalid Individual doesn't matter in this case,
+     * that this creates an invalid Genotype doesn't matter in this case,
      * because the crossover algorithm immediately rewrites the whole
      * chromosome.
      *

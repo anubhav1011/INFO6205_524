@@ -1,14 +1,13 @@
 package edu.neu.psa.GA;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
 public class Population {
 
-    private List<Individual> population;
+    private List<Genotype> population;
 
     private double populationFitness = -1;
 
@@ -20,8 +19,8 @@ public class Population {
     public Population(int populationSize, Database database) {
         this.population = new ArrayList<>();
         for (int i = 0; i < populationSize; i++) {
-            Individual individual = new Individual(database);
-            this.population.add(individual);
+            Genotype genotype = new Genotype(database);
+            this.population.add(genotype);
         }
 
     }
@@ -45,12 +44,12 @@ public class Population {
     }
 
 
-    public Individual getFittest() {
+    public Genotype getFittest() {
         return this.population.get(0);
 
     }
 
-    public Individual getFittest(int index) {
+    public Genotype getFittest(int index) {
         return this.population.get(index);
 
     }
@@ -64,7 +63,7 @@ public class Population {
         this.populationFitness = populationFitness;
     }
 
-    public List<Individual> getIndividuals() {
+    public List<Genotype> getIndividuals() {
         return population;
     }
 
@@ -72,7 +71,7 @@ public class Population {
         Random random = new Random();
         for (int i = 0; i < population.size(); i++) {
             int index = random.nextInt(i + 1);
-            Individual a = population.get(index);
+            Genotype a = population.get(index);
             population.set(index, population.get(i));
             population.set(i, a);
         }
@@ -83,7 +82,7 @@ public class Population {
         return this.population.size();
     }
 
-    public void setIndividual(int populationIndex, Individual parent1) {
+    public void setIndividual(int populationIndex, Genotype parent1) {
         this.population.add(populationIndex, parent1);
 
     }
