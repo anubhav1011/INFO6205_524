@@ -67,7 +67,7 @@ public class WorkerActor extends AbstractActor {
 
 
     public Genotype crossoverPopulation(Population previousPopulation, double crossoverRate, double elitismCount, int fitnessIndex) {
-        Genotype parent1 = previousPopulation.getFittest();
+        Genotype parent1 = previousPopulation.getFittest(fitnessIndex);
         if (crossoverRate > Math.random() && fitnessIndex >= elitismCount) {
             Genotype offspring = new Genotype(parent1.getChromosomeLength());
             Genotype parent2 = selectParent(previousPopulation);

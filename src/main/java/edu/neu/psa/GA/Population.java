@@ -25,6 +25,16 @@ public class Population {
 
     }
 
+    public Population(Population cloneable) {
+        this.population = new ArrayList<>();
+        for (Genotype genotype : cloneable.getGenotypes()) {
+            this.population.add(genotype);
+
+        }
+        this.populationFitness = cloneable.populationFitness;
+
+    }
+
 
     public void sortBasedOnFitness() {
         this.population = this.population.stream().sorted((x, y) -> {
@@ -42,7 +52,6 @@ public class Population {
 
 
     }
-
 
 
     public Genotype getFittest() {
@@ -70,6 +79,14 @@ public class Population {
 
     public List<Genotype> getGenotypes() {
         return population;
+    }
+
+    public void calculateFitness() {
+        double populationFitness = this.population.stream()
+                .mapToDouble(x -> x.getFitness())
+                .sum();
+        this.setPopulationFitness(populationFitness);
+
     }
 
     public void shuffle() {

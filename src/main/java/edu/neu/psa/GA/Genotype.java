@@ -184,4 +184,8 @@ public class Genotype {
 
 
     }
+
+    public Phenotype getPhenotype() {
+        return phenotype;
+    }
 }

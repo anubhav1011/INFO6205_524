@@ -1,5 +1,6 @@
 package edu.neu.psa.GA;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Phenotype {
@@ -8,7 +9,7 @@ public class Phenotype {
     private double fitnessScore;
 
     public Phenotype() {
-        this.matchSchedules = matchSchedules;
+        this.matchSchedules = new ArrayList<>();
     }
 
     public List<MatchSchedule> getMatchSchedules() {
