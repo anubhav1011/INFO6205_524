@@ -30,7 +30,11 @@ Run the below command to install all the dependencies.
 mvn clean install
 ```
 One approach is to Execute the `main` method in the `edu.neu.psa.GA.EplGAParallel` class from your IDE.
-Another approach is to run the java -jar under the target folder.
+
+Another approach is to run the jar file under the target folder.
+```shell
+java -jar
+```
 
 ## References
 Daniel Shiffman, “Nature of Code”, Chapter 09
