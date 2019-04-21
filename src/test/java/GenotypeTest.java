@@ -8,7 +8,7 @@ import org.junit.Test;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class Genotypetest {
+public class GenotypeTest {
 
 
     @Test

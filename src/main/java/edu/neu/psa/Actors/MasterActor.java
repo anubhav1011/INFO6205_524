@@ -158,14 +158,6 @@ public class MasterActor extends AbstractActor {
         database.addTeam(4, "Liverpool");
         database.addTeam(5, "Tottenham");
         database.addTeam(6, "Arsenal");
-//        database.addTeam(7, "Everton");
-//        database.addTeam(8, "Wolves");
-//        database.addTeam(1, "Team A");
-//        database.addTeam(2, "Team B");
-//        database.addTeam(3, "Team C");
-//        database.addTeam(4, "Team D");
-//        database.addTeam(9, "Leicester City");
-//        database.addTeam(10, "Southampton");
         return database;
 
     }
