@@ -44,7 +44,6 @@ public class Genotype {
             chromosomeIndex++;
 
         }
-        //System.out.println(Arrays.toString(this.chromosome));
     }
 
     public Genotype(int chromosomeLength) {
@@ -108,7 +107,6 @@ public class Genotype {
         int matchDays = (numberOfTeams - 1) * 2;
         int[] chromosome = this.getChromosome();
         int chromsoPos = 0;
-        int seasonSchedulePos = 0;
         Phenotype phenotype = new Phenotype();
         List<MatchSchedule> matchSchedules = phenotype.getMatchSchedules();
         for (int i = 0; i < matchDays; i++) {
@@ -126,15 +124,24 @@ public class Genotype {
         this.phenotype = phenotype;
         this.calculateFitness();
     }
-
+    /*
+    * Calculate fitness by inversing the clashes + 1
+    *
+    * */
     public void calculateFitness() {
-        // Create new database object to use -- cloned from an existing database
         int clashes = calculateClashes();
         double fitness = 1 / (double) (clashes + 1);
         this.setFitness(fitness);
-        //return fitness;
     }
 
+
+    /*
+    * Calculate Clashes:
+    * 1) Calculate number of times same match being played
+    * 2) Calculate the number of time a team is playing multiple matches on the same day.
+    * 3) Sum 1) and 2) and return back.
+    *
+    * */
 
     public int calculateClashes() {
         int clashes;
@@ -142,6 +149,8 @@ public class Genotype {
         int teamsPlayingMultipleMatchesSameDay = 0;
         int teamsPlayingAgainstEachOther = 0;
         List<MatchSchedule> seasonSchedule = this.phenotype.getMatchSchedules();
+
+
         //Get all matches for a particular schedule
         List<Match> allMatches = seasonSchedule.stream()
                 .flatMap(x -> x.getMatches().stream())
@@ -153,9 +162,15 @@ public class Genotype {
                 .filter(x -> x.intValue() > 1)
                 .mapToInt(x -> x.intValue())
                 .sum();
+
+
+
         if (numberOfTimeSameMatchBeingPlayed != 0) {
             numberOfTimeSameMatchBeingPlayed = numberOfTimeSameMatchBeingPlayed / 2;
         }
+
+
+        //Calculate the number of time one team is playing matches on the same day.
         for (MatchSchedule matchSchedule : seasonSchedule) {
             Integer[] matchDayChromosome = matchSchedule.getMatches().stream()
                     .flatMap(x -> Stream.of(x.getMatch()))
@@ -170,15 +185,7 @@ public class Genotype {
                 sum = sum / 2;
             }
             teamsPlayingMultipleMatchesSameDay = teamsPlayingMultipleMatchesSameDay + sum;
-//            if (teamsPlayingMultipleMatchesSameDay != 0) {
-//                teamsPlayingMultipleMatchesSameDay = teamsPlayingMultipleMatchesSameDay + teamsPlayingMultipleMatchesSameDay / 2;
-//
-//
-//            }
         }
-//        long teamsPlayingAgainstEachOtherLong = allMatches.stream().filter(x -> x.getMatch()[0] == x.getMatch()[1])
-//                .count();
-//        teamsPlayingAgainstEachOther = (int) teamsPlayingAgainstEachOtherLong;
         clashes = numberOfTimeSameMatchBeingPlayed + teamsPlayingMultipleMatchesSameDay + teamsPlayingAgainstEachOther;
         return clashes;
 

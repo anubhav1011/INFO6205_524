@@ -68,8 +68,6 @@ public class MasterActor extends AbstractActor {
             //recalculateFitness();
             this.currentPopulation = this.geneticAlgorithm.mutatePopulation(this.currentPopulation, this.database);
             recalculateFitness(this.currentPopulation);
-//            this.currentPopulation.calculateFitness();
-//            this.currentPopulation.sortBasedOnFitness();
             if (this.geneticAlgorithm.isTerminationConditionMet(this.currentPopulation) == false) {
                 System.out.println("Generation: " + this.currentGeneration + " fittest " + this.currentPopulation.getFittest().getFitness());
                 // Population previousGeneration = new Population(this.currentPopulation);
@@ -106,12 +104,13 @@ public class MasterActor extends AbstractActor {
     public void executeInitLogic() {
         //Create Initial Population
         this.database = initializeDatabase();
-        //GeneticAlgorithm geneticAlgorithm = new GeneticAlgorithm(this.populationSize, 0.01, 0.95, 4);
         Population population = this.geneticAlgorithm.initPopulation(database);
         this.currentPopulation = population;
         for (Genotype genotype : population.getGenotypes()) {
             WorkerActor.CalculateFitness calculateFitness = new WorkerActor.CalculateFitness(genotype, database.getTeams());
-            ActorRef workerActor = getContext().actorOf(WorkerActor.props(), "Generation-1" + "-Child-" + population.getGenotypes().indexOf(genotype));
+            ActorRef workerActor = getContext()
+                    .actorOf
+                            (WorkerActor.props(), "Generation-1" + "-Child-" + population.getGenotypes().indexOf(genotype));
             workerActor.tell(calculateFitness, getSelf());
         }
         this.currentGeneration++;
@@ -161,6 +160,10 @@ public class MasterActor extends AbstractActor {
         database.addTeam(6, "Arsenal");
 //        database.addTeam(7, "Everton");
 //        database.addTeam(8, "Wolves");
+//        database.addTeam(1, "Team A");
+//        database.addTeam(2, "Team B");
+//        database.addTeam(3, "Team C");
+//        database.addTeam(4, "Team D");
 //        database.addTeam(9, "Leicester City");
 //        database.addTeam(10, "Southampton");
         return database;
